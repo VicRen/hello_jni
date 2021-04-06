@@ -1,3 +1,0 @@
-include ':rtc'
-include ':app'
-rootProject.name = "rtc"

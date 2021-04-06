@@ -38,3 +38,4 @@ install(TARGETS sandbox DESTINATION lib)
 install(FILES ${HEADER_FILES} DESTINATION lib/include)
 
 add_subdirectory(example)
+#add_subdirectory(sdk/android/rtc)
