@@ -1,9 +1,8 @@
-package ren.vic.jnidemo;
+package ren.vic.rtc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,8 +19,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Example of a call to a native method
         TextView tv = findViewById(R.id.sample_text);
-        Testing t = new Testing();
-        tv.setText(t.stringFromJNI());
-        Log.d("-------->Hello", String.valueOf(t.helloFromJNI()));
+        tv.setText(stringFromJNI());
     }
+
+    /**
+     * A native method that is implemented by the 'native-lib' native library,
+     * which is packaged with this application.
+     */
+    public native String stringFromJNI();
 }

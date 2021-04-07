@@ -3,14 +3,14 @@
 #include <string>
 
 extern "C" {
-JNIEXPORT jstring JNICALL Java_ren_vic_jnidemo_MainActivity_stringFromJNI(
+JNIEXPORT jstring JNICALL Java_ren_vic_jnidemo_Testing_stringFromJNI(
         JNIEnv *env,
         jobject /* this */) {
     std::string hello = "Hello from C++";
     return env->NewStringUTF(hello.c_str());
 }
 
-JNIEXPORT jint JNICALL Java_ren_vic_jnidemo_MainActivity_helloFromJNI(
+JNIEXPORT jint JNICALL Java_ren_vic_jnidemo_Testing_helloFromJNI(
         JNIEnv *env,
         jobject /* this */) {
     auto hello = new Hello(1);

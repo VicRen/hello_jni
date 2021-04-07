@@ -1,0 +1,2 @@
+include ':rtc'
+rootProject.name = "rtc"
