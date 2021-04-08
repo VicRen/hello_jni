@@ -18,6 +18,11 @@ android {
                 cppFlags "-std=c++14"
             }
         }
+        ndk {
+            // Specifies the ABI configurations of your native
+            // libraries Gradle should build and package with your APK.
+            abiFilters 'armeabi-v7a'
+        }
     }
 
     buildTypes {
@@ -28,7 +33,7 @@ android {
     }
     externalNativeBuild {
         cmake {
-            path "CMakeLists.txt"
+            path "../../../CMakeLists.txt"
             version "3.10.2"
         }
     }

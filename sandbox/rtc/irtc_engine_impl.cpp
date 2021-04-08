@@ -17,6 +17,10 @@ namespace vic {
             }
             std::cout << "IRtcEngine initialized" << std::endl;
         }
+
+        int IRtcEngineImpl::testingInt() {
+            return 25;
+        }
     }
 }
 
