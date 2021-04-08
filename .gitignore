@@ -10,3 +10,4 @@ sandbox/cmake-build-debugarm/*
 demo/gradle/wrapper/gradle-wrapper.jar
 demo/gradle/wrapper/gradle-wrapper.properties
 sandbox/sdk/android/gradle/wrapper/gradle-wrapper.jar
+cross_compile/cmake-build-debugarm/*
