@@ -1,4 +1,5 @@
 #include "irtc_engine_impl.h"
+#include "mymath.h"
 
 #include <iostream>
 #include <string>
@@ -21,7 +22,7 @@ namespace vic {
 //            if (handler) {
 //                handler->onError(0, nullptr);
 //            }
-            return 25;
+            return myadd(25, 25);
         }
     }
 }

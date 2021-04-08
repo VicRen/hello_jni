@@ -5,6 +5,20 @@ set(CMAKE_CXX_STANDARD 14)
 
 message("\n=========== sandbox Build Configuration ===========\n")
 
+# Project configuration.
+set(LIBWEBRTC_INCLUDE_PATH "" CACHE STRING "libwebrtc include path")
+set(LIBWEBRTC_BINARY_PATH "" CACHE STRING "libwebrtc binary path")
+
+set(LIBWEBRTC_INCLUDE_PATH /Users/vic/Developer/workspace/webrtc/code/src)
+
+if(NOT LIBWEBRTC_INCLUDE_PATH)
+    message(FATAL_ERROR "LIBWEBRTC_INCLUDE_PATH not provided")
+endif()
+
+#if(NOT LIBWEBRTC_BINARY_PATH)
+#    message(FATAL_ERROR "LIBWEBRTC_BINARY_PATH not provided")
+#endif()
+
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR}/out)
@@ -45,10 +59,45 @@ set(
 )
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})
+add_library(mymath STATIC IMPORTED)
+add_library(webrtc STATIC IMPORTED)
+
+set_target_properties(
+        mymath
+        # Specifies the parameter you want to define.
+        PROPERTIES IMPORTED_LOCATION
+
+        # Provides the path to the library you want to import.
+        ${SOURCE_DIR}/rtc/libs/libmymath.a
+)
+
+set_target_properties(
+        webrtc
+        # Specifies the parameter you want to define.
+        PROPERTIES IMPORTED_LOCATION
+
+        # Provides the path to the library you want to import.
+        ${SOURCE_DIR}/rtc/libs/libwebrtc.a
+)
 
 target_include_directories(${PROJECT_NAME} PRIVATE
         ${HEADER_FILES}
+        ${LIBWEBRTC_INCLUDE_PATH}
+        ${LIBWEBRTC_INCLUDE_PATH}/third_party/abseil-cpp
 )
+
+target_link_libraries(
+        ${PROJECT_NAME} PUBLIC
+        mymath
+        webrtc
+)
+
+# Compile definitions for libwebrtc.
+target_compile_definitions(${PROJECT_NAME} PUBLIC
+        $<$<NOT:$<PLATFORM_ID:Windows>>:WEBRTC_POSIX>
+        $<$<PLATFORM_ID:Windows>:WEBRTC_WIN>
+        $<$<PLATFORM_ID:Darwin>:WEBRTC_MAC>
+        )
 
 message(STATUS "cmake-install-prefix = " ${CMAKE_INSTALL_PREFIX})
 install(TARGETS sandbox DESTINATION lib)
