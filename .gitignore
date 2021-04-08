@@ -7,3 +7,6 @@ hello_world_cpp/libHelloWorld.jnilib
 hello_world_cpp/HelloWorld.class
 cross_compile/build/*
 sandbox/cmake-build-debugarm/*
+demo/gradle/wrapper/gradle-wrapper.jar
+demo/gradle/wrapper/gradle-wrapper.properties
+sandbox/sdk/android/gradle/wrapper/gradle-wrapper.jar
