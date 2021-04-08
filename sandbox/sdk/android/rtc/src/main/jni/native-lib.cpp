@@ -4,6 +4,8 @@
 #include "irtc_engine_impl.h"
 #include "irtc_engine_handler_jni.h"
 
+#include <sdk/android/native_api/jni/java_types.h>
+
 extern "C" {
     vic::rtc::IRtcEngineImpl *engine;
 
@@ -15,7 +17,7 @@ extern "C" {
         vic::rtc::RtcEngineContext ctx;
         ctx.eventHandler = handler;
         engine->initialize(ctx);
-        return reinterpret_cast<intptr_t>(handler);
+        return webrtc::NativeToJavaPointer(handler);
     }
 
     JNIEXPORT jint JNICALL
