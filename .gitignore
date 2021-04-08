@@ -5,3 +5,4 @@ hello_world/libHelloWorld.jnilib
 hello_world/libHelloWorld.so
 hello_world_cpp/libHelloWorld.jnilib
 hello_world_cpp/HelloWorld.class
+cross_compile/build/*
