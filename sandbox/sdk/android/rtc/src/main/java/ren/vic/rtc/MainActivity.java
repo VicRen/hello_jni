@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +24,22 @@ public class MainActivity extends AppCompatActivity {
         // Example of a call to a native method
         TextView tv = findViewById(R.id.sample_text);
 
-        Testing testing = new Testing();
-        tv.setText(String.valueOf(testing.intFromJni()));
+        RtcEngine engine = null;
+        try {
+            engine = RtcEngine.create(getApplicationContext(), "", new IRtcEngineEventHandler() {
+                @Override
+                public void onWarning(int warn) {
+                    super.onWarning(warn);
+                }
+
+                @Override
+                public void onError(int err) {
+                    Toast.makeText(getApplicationContext(), "Testing Callback", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        tv.setText(String.valueOf(engine.TestingInt()));
     }
 }

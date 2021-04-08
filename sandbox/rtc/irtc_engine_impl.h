@@ -16,6 +16,9 @@ namespace vic {
             void initialize(const RtcEngineContext &context) override;
 
             int testingInt();
+
+        private:
+            IRtcEngineEventHandler *handler;
         };
     }
 }

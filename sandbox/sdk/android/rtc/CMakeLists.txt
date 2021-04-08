@@ -20,6 +20,7 @@ set(
 set(
         SOURCE_FILES
         ${SOURCE_DIR}/native-lib.cpp
+        ${SOURCE_DIR}/irtc_engine_handler_jni.cpp
 )
 
 # Creates and names a library, sets it as either STATIC
@@ -55,9 +56,15 @@ add_library( # Sets the name of the library.
 
 include_directories(
         ../../../rtc
+        src/main/jni/include
 )
 link_directories(
         ../../../cmake-build-debug/lib
+)
+
+target_include_directories(${PROJECT_NAME} PUBLIC
+        ${SOURCE_DIR}
+        ${SOURCE_DIR}/include
 )
 
 target_link_libraries( # Specifies the target library.
