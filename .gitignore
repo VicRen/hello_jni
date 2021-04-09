@@ -11,3 +11,10 @@ demo/gradle/wrapper/gradle-wrapper.jar
 demo/gradle/wrapper/gradle-wrapper.properties
 sandbox/sdk/android/gradle/wrapper/gradle-wrapper.jar
 cross_compile/cmake-build-debugarm/*
+import_libs/gradle/wrapper/gradle-wrapper.jar
+import_libs/gradle/wrapper/gradle-wrapper.properties
+import_libs/gradlew
+import_libs/gradlew.bat
+import_libs/libs/arm64-v8a/libwebrtc.a
+import_libs/libs/armeabi-v7a/libwebrtc.a
+import_libs/settings.gradle
