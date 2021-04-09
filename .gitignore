@@ -18,3 +18,4 @@ import_libs/gradlew.bat
 import_libs/libs/arm64-v8a/libwebrtc.a
 import_libs/libs/armeabi-v7a/libwebrtc.a
 import_libs/settings.gradle
+import_libs/app/deps/webrtc
