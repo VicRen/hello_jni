@@ -59,17 +59,7 @@ set(
 )
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})
-add_library(mymath STATIC IMPORTED)
 add_library(webrtc STATIC IMPORTED)
-
-set_target_properties(
-        mymath
-        # Specifies the parameter you want to define.
-        PROPERTIES IMPORTED_LOCATION
-
-        # Provides the path to the library you want to import.
-        ${SOURCE_DIR}/rtc/libs/libmymath.a
-)
 
 set_target_properties(
         webrtc
@@ -88,8 +78,8 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 
 target_link_libraries(
         ${PROJECT_NAME} PUBLIC
-        mymath
         webrtc
+        OpenSLES
 )
 
 # Compile definitions for libwebrtc.

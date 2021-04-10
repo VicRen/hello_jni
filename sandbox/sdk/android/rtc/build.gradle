@@ -15,13 +15,14 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
+                arguments = ['-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_shared']
                 cppFlags "-std=c++14"
             }
         }
         ndk {
             // Specifies the ABI configurations of your native
             // libraries Gradle should build and package with your APK.
-            abiFilters 'armeabi-v7a'
+            abiFilters 'arm64-v8a'
         }
     }
 

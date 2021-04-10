@@ -8,15 +8,15 @@ namespace vic {
     namespace rtc {
         class RtcEngineHandlerJni : public IRtcEngineEventHandler {
         public:
-            RtcEngineHandlerJni(JNIEnv* env, const jobject listener);
+            RtcEngineHandlerJni(JNIEnv* env, jobject listener);
             ~RtcEngineHandlerJni() {}
 
             void onError(int err, const char *msg) override;
             void onEvent(int event, unsigned char evt[], int evtLen);
 
         private:
-            JNIEnv *j_env_;
-            jobject j_listener_;
+            JavaVM *g_VM;
+            jobject g_obj;
         };
     } // namespace rtc
 } // namespace vic

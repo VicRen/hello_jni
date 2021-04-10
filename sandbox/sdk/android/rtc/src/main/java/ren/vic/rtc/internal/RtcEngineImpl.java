@@ -63,8 +63,8 @@ public class RtcEngineImpl extends RtcEngine {
                     this.handleEvent(eventId, evt, h);
                 }
             }
-        } catch (Exception var5) {
-            Log.e("RtcEngine", "onEvent: " + var5.toString());
+        } catch (Exception e) {
+            Log.e("RtcEngine", "onEvent: " + e.toString());
         }
     }
 
@@ -74,10 +74,10 @@ public class RtcEngineImpl extends RtcEngine {
             RtcEngineMessage.PError pe;
             switch (eventId) {
                 case Events.ERROR:
-                    pe = new RtcEngineMessage.PError();
-                    pe.unmarshall(evt);
-                    Log.i("=========", "Events.ERROR err:" + pe.err);
-                    handler.onError(pe.err);
+//                    pe = new RtcEngineMessage.PError();
+//                    pe.unmarshall(evt);
+//                    Log.i("=========", "Events.ERROR err:" + pe.err);
+                    handler.onError(0);
                     break;
             }
         }
