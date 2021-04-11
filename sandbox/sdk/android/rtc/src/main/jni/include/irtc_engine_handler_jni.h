@@ -13,6 +13,7 @@ namespace vic {
 
             void onError(int err, const char *msg) override;
             void onEvent(int event, unsigned char evt[], int evtLen);
+            void onEvent(const char *name, const char *info);
 
         private:
             JavaVM *g_VM;

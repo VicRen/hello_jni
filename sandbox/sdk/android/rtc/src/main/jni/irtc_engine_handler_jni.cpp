@@ -27,7 +27,8 @@ namespace vic {
 //            memcpy(b, p_totalLen, shortLen);
 //            memcpy(b + shortLen, p_err, intLen);
 //            onEvent(ERROR, b, totalLen);
-            onEvent(ERROR, nullptr, 0);
+//            onEvent(ERROR, nullptr, 0);
+            onEvent(RTC_ERROR, "{message: \"TestingString\"}");
         }
 
         void RtcEngineHandlerJni::onEvent(int event, unsigned char *evt, int evtLen) {
@@ -47,8 +48,30 @@ namespace vic {
             jbyteArray array = env->NewByteArray(evtLen);
             env->SetByteArrayRegion(array, 0, evtLen, (jbyte *) evt);
 
-            jmethodID methodId = env->GetMethodID(cls, "onEvent", "(I[B)V");
-            env->CallVoidMethod(g_obj, methodId, event, array);
+            jmethodID methodId = env->GetMethodID(cls, "onEvent", "(Ljava/lang/String;Ljava/lang/String;)V");
+//            env->CallVoidMethod(g_obj, methodId, event, array);
+            jstring jStringParam = env->NewStringUTF(std::string("testing").c_str());
+            env->CallVoidMethod(g_obj, methodId, jStringParam, jStringParam);
+        }
+
+        void RtcEngineHandlerJni::onEvent(const char *name, const char *info) {
+            LOGI("------>RtcEngineHandlerJni::onEvent: ");
+            JNIEnv *env;
+            //获取当前native线程是否有没有被附加到jvm环境中
+            int getEnvStat = g_VM->GetEnv((void **) &env,JNI_VERSION_1_6);
+            if (getEnvStat == JNI_EDETACHED) {
+                LOGI("------>RtcEngineHandlerJni::onEvent: JNI_EDETACHED");
+                //如果没有， 主动附加到jvm环境中，获取到env
+                if (g_VM->AttachCurrentThread(&env, NULL) != 0) {
+                    return;
+                }
+//                mNeedDetach = JNI_TRUE;
+            }
+            jclass cls = env->GetObjectClass(g_obj);
+            jmethodID methodId = env->GetMethodID(cls, "onEvent", "(Ljava/lang/String;Ljava/lang/String;)V");
+            jstring jStringParam1 = env->NewStringUTF(name);
+            jstring jStringParam2 = env->NewStringUTF(info);
+            env->CallVoidMethod(g_obj, methodId, jStringParam1, jStringParam2);
         }
     }
 }

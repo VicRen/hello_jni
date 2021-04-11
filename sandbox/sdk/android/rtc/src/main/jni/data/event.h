@@ -4,6 +4,7 @@
 namespace vic {
     namespace rtc {
         const int ERROR = 101;
+        const char *RTC_ERROR = "RtcError";
     }
 }
 

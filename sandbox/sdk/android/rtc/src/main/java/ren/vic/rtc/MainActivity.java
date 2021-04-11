@@ -40,12 +40,11 @@ public class MainActivity extends AppCompatActivity {
                 rtcEngine = RtcEngine.create(getApplicationContext(), "", new IRtcEngineEventHandler() {
                     @Override
                     public void onWarning(int warn) {
-                        super.onWarning(warn);
                     }
 
                     @Override
                     public void onError(int err) {
-                        mMainHandler.post(()-> tv.setText("YES!"));
+                        mMainHandler.postDelayed(()-> tv.setText("YES!"), 3000);
                     }
                 });
                 mMainHandler.post(()-> tv.setText("READY!"));

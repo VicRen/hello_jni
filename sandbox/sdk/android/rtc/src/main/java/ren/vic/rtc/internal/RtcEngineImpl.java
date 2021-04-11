@@ -50,6 +50,17 @@ public class RtcEngineImpl extends RtcEngine {
         return 0;
     }
 
+    protected void onEvent(String name, String info) {
+        Log.i("----------->RtcEngine", String.format("onEvent: %s, %s", name, info));
+        try {
+            for (IRtcEngineEventHandler h : this.mRtcHandlers.keySet()) {
+                h.onError(0);
+            }
+        } catch (Exception e) {
+            Log.e("RtcEngine", "onEvent: " + e.toString());
+        }
+    }
+
     protected void onEvent(int eventId, byte[] evt) {
         Log.i("----------->RtcEngine", "onEvent: ");
         try {
