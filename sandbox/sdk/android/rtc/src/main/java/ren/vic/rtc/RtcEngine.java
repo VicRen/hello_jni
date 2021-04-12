@@ -1,7 +1,7 @@
 package ren.vic.rtc;
 
 import android.content.Context;
-
+import org.webrtc.ContextUtils;
 import ren.vic.rtc.internal.RtcEngineImpl;
 
 public abstract class RtcEngine {
@@ -12,6 +12,7 @@ public abstract class RtcEngine {
 
     public static synchronized RtcEngine create(Context context, String appId, IRtcEngineEventHandler handler) throws Exception {
         if (context != null) {
+            ContextUtils.initialize(context);
             if (mInstance == null) {
                 mInstance = new RtcEngineImpl(context, appId, handler);
             } else {

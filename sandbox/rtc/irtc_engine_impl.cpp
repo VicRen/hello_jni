@@ -30,21 +30,30 @@ namespace vic {
             handler = context.eventHandler;
             LOGI("-------->IRtcEngine initialized");
 
-            auto networkThread   = ::rtc::Thread::CreateWithSocketServer();
-            auto signalingThread = ::rtc::Thread::Create();
-            auto workerThread    = ::rtc::Thread::Create();
+            networkThread   = ::rtc::Thread::CreateWithSocketServer();
+            signalingThread = ::rtc::Thread::Create();
+            workerThread    = ::rtc::Thread::Create();
+
+            networkThread->SetName("network_thread", nullptr);
+            signalingThread->SetName("signaling_thread", nullptr);
+            workerThread->SetName("worker_thread", nullptr);
+
+            if (!networkThread->Start() || !signalingThread->Start() || !workerThread->Start()) {
+                return;
+            }
+            LOGI("-------->thread stared");
             thread_ = ::rtc::Thread::Create();
-//            pf_ = webrtc::CreatePeerConnectionFactory(
-//                    networkThread.get(),
-//                    workerThread.get(),
-//                    signalingThread.get(),
-//                    nullptr /*default_adm*/,
-//                    webrtc::CreateBuiltinAudioEncoderFactory(),
-//                    webrtc::CreateBuiltinAudioDecoderFactory(),
-//                    webrtc::CreateBuiltinVideoEncoderFactory(),
-//                    webrtc::CreateBuiltinVideoDecoderFactory(),
-//                    nullptr /*audio_mixer*/,
-//                    nullptr /*audio_processing*/);
+            pf_ = webrtc::CreatePeerConnectionFactory(
+                    networkThread.get(),
+                    workerThread.get(),
+                    signalingThread.get(),
+                    nullptr /*default_adm*/,
+                    webrtc::CreateBuiltinAudioEncoderFactory(),
+                    webrtc::CreateBuiltinAudioDecoderFactory(),
+                    webrtc::CreateBuiltinVideoEncoderFactory(),
+                    webrtc::CreateBuiltinVideoDecoderFactory(),
+                    nullptr /*audio_mixer*/,
+                    nullptr /*audio_processing*/);
             LOGI("-------->peerConnectionFactory created");
         }
 

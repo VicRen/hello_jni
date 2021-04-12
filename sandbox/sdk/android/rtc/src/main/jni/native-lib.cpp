@@ -5,6 +5,7 @@
 #include "irtc_engine_handler_jni.h"
 
 #include <sdk/android/native_api/jni/java_types.h>
+#include <modules/utility/include/jvm_android.h>
 #include <android/log.h>
 
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, "TRY_WEBRTC", ##__VA_ARGS__)
@@ -20,6 +21,9 @@ extern "C" {
     JNIEXPORT jlong JNICALL
     Java_ren_vic_rtc_internal_RtcEngineImpl_nativeObjectInit(JNIEnv *env, jobject thiz,
         jobject context) {
+        JavaVM* jvm = NULL;
+        RTC_CHECK_EQ(0, env->GetJavaVM(&jvm));
+        webrtc::JVM::Initialize(jvm);
         auto handler = new vic::rtc::RtcEngineHandlerJni(env, thiz);
         vic::rtc::RtcEngineContext ctx;
         ctx.eventHandler = handler;
@@ -39,5 +43,6 @@ extern "C" {
                                                               jbyteArray app_context, jstring token,
                                                               jstring channel_name, jstring info,
                                                               jint uid) {
+//        reinterpret_cast<vic::rtc::IRtcEngine*>(native_handle)->initialize();
     }
 }

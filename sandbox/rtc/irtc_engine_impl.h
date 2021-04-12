@@ -24,6 +24,9 @@ namespace vic {
 
         private:
             IRtcEngineEventHandler *handler;
+            std::unique_ptr<::rtc::Thread> networkThread;
+            std::unique_ptr<::rtc::Thread> signalingThread;
+            std::unique_ptr<::rtc::Thread> workerThread;
             std::unique_ptr<::rtc::Thread> thread_;
             ::rtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> pf_;
         };
