@@ -59,6 +59,7 @@ include_directories(
         src/main/jni/include
         ${LIBWEBRTC_INCLUDE_PATH}
         ${LIBWEBRTC_INCLUDE_PATH}/third_party/abseil-cpp
+        ../../../rtc/protoo_client/include
 )
 link_directories(
         ../../../cmake-build-debug/lib
@@ -73,6 +74,7 @@ target_link_libraries( # Specifies the target library.
         ${PROJECT_NAME} PUBLIC
         android
         sandbox
+        protooclient
                        # Links the target library to the log library
                        # included in the NDK.
                        ${log-lib}

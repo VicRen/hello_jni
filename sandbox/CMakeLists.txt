@@ -8,8 +8,14 @@ message("\n=========== sandbox Build Configuration ===========\n")
 # Project configuration.
 set(LIBWEBRTC_INCLUDE_PATH "" CACHE STRING "libwebrtc include path")
 set(LIBWEBRTC_BINARY_PATH "" CACHE STRING "libwebrtc binary path")
+set(LIBBOOST_INCLUDE_PATH ${BOOST_HEADER_PATH} CACHE STRING "libboost include path" FORCE)
+set(LIBBOOST_BINARY_PATH ${BOOST_LIB_PATH} CACHE STRING "libboost binary path" FORCE)
 
 set(LIBWEBRTC_INCLUDE_PATH /Users/vic/Developer/workspace/webrtc/code/src)
+set(LIBBOOST_INCLUDE_PATH /Users/vic/Developer/deps/boost/arm64-v8a/include/boost-1_74)
+set(LIBBOOST_BINARY_PATH /Users/vic/Developer/deps/boost/arm64-v8a/lib)
+set(BOOST_HEADER_PATH ${LIBBOOST_INCLUDE_PATH})
+set(BOOST_LIB_PATH ${LIBBOOST_BINARY_PATH})
 
 if(NOT LIBWEBRTC_INCLUDE_PATH)
     message(FATAL_ERROR "LIBWEBRTC_INCLUDE_PATH not provided")
@@ -42,6 +48,7 @@ set(CMAKE_FIND_ROOT_PATH ${NDK_STANDALONE_TOOLCHAIN})
 
 # 使用 NDK 提供的头文件
 add_definitions("--sysroot=${NDK_STANDALONE_TOOLCHAIN}/sysroot")
+add_definitions(-DPROTOO_ENABLE_SSL)
 
 set(
         SOURCE_DIR
@@ -58,6 +65,8 @@ set(
         ${SOURCE_DIR}/rtc/irtc_engine.h
 )
 
+add_subdirectory("rtc/protoo_client")
+
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})
 add_library(webrtc STATIC IMPORTED)
 
@@ -66,20 +75,23 @@ set_target_properties(
         # Specifies the parameter you want to define.
         PROPERTIES IMPORTED_LOCATION
 
-        # Provides the path to the library you want to import.
-        ${SOURCE_DIR}/rtc/libs/libwebrtc.a
+        # Provides the path to the library youar want to import.
+        ${SOURCE_DIR}/sdk/android/rtc/libs/${ANDROID_ABI}/libwebrtc.a
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
         ${HEADER_FILES}
         ${LIBWEBRTC_INCLUDE_PATH}
         ${LIBWEBRTC_INCLUDE_PATH}/third_party/abseil-cpp
+        ${SOURCE_DIR}/rtc/protoo_client/include
+        ${SOURCE_DIR}/rtc/deps/include
 )
 
 target_link_libraries(
         ${PROJECT_NAME} PUBLIC
         webrtc
         OpenSLES
+        protooclient
 )
 
 # Compile definitions for libwebrtc.

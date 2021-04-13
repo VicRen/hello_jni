@@ -55,6 +55,9 @@ namespace vic {
                     nullptr /*audio_mixer*/,
                     nullptr /*audio_processing*/);
             LOGI("-------->peerConnectionFactory created");
+            std::string url = "wss://meeting.lstaas.com:4443/?roomId=qdslphmo&peerId=o46iutoq";
+            peerListener_ = std::make_unique<RtcPeerListener>();
+            auto peer = new lightspeed::protoo::Peer(url, peerListener_.get());
         }
 
         int IRtcEngineImpl::testingInt() {
@@ -72,6 +75,31 @@ namespace vic {
             });
             thread_->Stop();
             return 25;
+        }
+
+        void RtcPeerListener::onOpen() {
+            LOGI("-------->RtcPeerListener::onOpen");
+        }
+
+        void RtcPeerListener::onFail() {
+            LOGI("-------->RtcPeerListener::onFail");
+        }
+
+        void RtcPeerListener::onRequest(lightspeed::protoo::Request *request,
+                                        lightspeed::protoo::ServerRequestHandler *handler) {
+
+        }
+
+        void RtcPeerListener::onNotification(lightspeed::protoo::Notification *notification) {
+            LOGI("-------->RtcPeerListener::onNotification");
+        }
+
+        void RtcPeerListener::onDisconnected() {
+            LOGI("-------->RtcPeerListener::onDisconnected");
+        }
+
+        void RtcPeerListener::onClose() {
+            LOGI("-------->RtcPeerListener::onClose");
         }
     }
 }
