@@ -1,0 +1,82 @@
+# For more information about using CMake with Android Studio, read the
+# documentation: https://d.android.com/studio/projects/add-native-code.html
+
+# Sets the minimum version of CMake required to build the native library.
+
+cmake_minimum_required(VERSION 3.10.2)
+
+# Declares and names the project.
+
+project("websocket")
+
+
+# Project configuration.
+set(LIBWEBRTC_INCLUDE_PATH "" CACHE STRING "libwebrtc include path")
+set(LIBWEBRTC_BINARY_PATH "" CACHE STRING "libwebrtc binary path")
+set(LIBBOOST_INCLUDE_PATH ${BOOST_HEADER_PATH} CACHE STRING "libboost include path" FORCE)
+set(LIBBOOST_BINARY_PATH ${BOOST_LIB_PATH} CACHE STRING "libboost binary path" FORCE)
+
+set(LIBWEBRTC_INCLUDE_PATH /Users/vic/Developer/workspace/webrtc/code/src)
+set(LIBBOOST_INCLUDE_PATH /Users/vic/Developer/deps/boost/arm64-v8a/include/boost-1_74)
+set(LIBBOOST_BINARY_PATH /Users/vic/Developer/deps/boost/arm64-v8a/lib)
+set(BOOST_HEADER_PATH ${LIBBOOST_INCLUDE_PATH})
+set(BOOST_LIB_PATH ${LIBBOOST_BINARY_PATH})
+
+if (NOT LIBWEBRTC_INCLUDE_PATH)
+    message(FATAL_ERROR "LIBWEBRTC_INCLUDE_PATH not provided")
+endif ()
+
+# Creates and names a library, sets it as either STATIC
+# or SHARED, and provides the relative paths to its source code.
+# You can define multiple libraries, and CMake builds them for you.
+# Gradle automatically packages shared libraries with your APK.
+
+add_library( # Sets the name of the library.
+        ${PROJECT_NAME} STATIC
+
+        # Sets the library as a shared library.
+        SHARED
+
+        # Provides a relative path to your source file(s).
+        native-lib.cpp
+        TestWebSocket.cpp
+        )
+
+# Searches for a specified prebuilt library and stores the path as a
+# variable. Because CMake includes system libraries in the search path by
+# default, you only need to specify the name of the public NDK library
+# you want to add. CMake verifies that the library exists before
+# completing its build.
+
+include_directories(
+        websocketpp
+)
+
+target_include_directories(
+        ${PROJECT_NAME} PUBLIC
+        websocketpp
+        ${LIBBOOST_INCLUDE_PATH}
+)
+
+find_library( # Sets the name of the path variable.
+        log-lib
+
+        # Specifies the name of the NDK library that
+        # you want CMake to locate.
+        log)
+
+# Specifies libraries CMake should link to your target library. You
+# can link multiple libraries, such as libraries you define in this
+# build script, prebuilt third-party libraries, or system libraries.
+
+target_link_libraries( # Specifies the target library.
+        ${PROJECT_NAME} PUBLIC
+
+        # Links the target library to the log library
+        # included in the NDK.
+        ${log-lib}
+        "${BOOST_LIB_PATH}/libboost_random-clang-mt-a64-1_74.a"
+        "${BOOST_LIB_PATH}/libboost_date_time-clang-mt-a64-1_74.a"
+        "${BOOST_LIB_PATH}/libboost_regex-clang-mt-a64-1_74.a"
+        "${BOOST_LIB_PATH}/libboost_system-clang-mt-a64-1_74.a"
+        )

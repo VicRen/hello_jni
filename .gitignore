@@ -21,3 +21,11 @@ import_libs/settings.gradle
 import_libs/app/deps/webrtc
 sandbox/rtc/deps/*
 sandbox/rtc/protoo_client/*
+websocket/app/src/main/cpp/example/websocketpp/*
+websocket/app/src/main/cpp/websocketpp/*
+websocket/app/src/main/cpp/example/.idea/*
+websocket/gradlew
+websocket/gradlew.bat
+websocket/gradle/wrapper/gradle-wrapper.jar
+websocket/gradle/wrapper/gradle-wrapper.properties
+websocket/app/src/main/cpp/example/cmake-build-debug/*
