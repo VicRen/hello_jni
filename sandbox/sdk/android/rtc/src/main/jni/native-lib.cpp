@@ -4,6 +4,7 @@
 #include "irtc_engine_impl.h"
 #include "irtc_engine_handler_jni.h"
 
+#include <rtc_base/thread.h>
 #include <sdk/android/native_api/jni/java_types.h>
 #include <modules/utility/include/jvm_android.h>
 #include <android/log.h>
@@ -24,6 +25,7 @@ extern "C" {
         JavaVM* jvm = NULL;
         RTC_CHECK_EQ(0, env->GetJavaVM(&jvm));
         webrtc::JVM::Initialize(jvm);
+        ::rtc::ThreadManager::Instance()->WrapCurrentThread();
         auto handler = new vic::rtc::RtcEngineHandlerJni(env, thiz);
         vic::rtc::RtcEngineContext ctx;
         ctx.eventHandler = handler;

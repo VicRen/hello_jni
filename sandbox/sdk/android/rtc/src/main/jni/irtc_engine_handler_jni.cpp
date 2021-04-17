@@ -1,6 +1,7 @@
 #include "irtc_engine_handler_jni.h"
 #include <string>
 #include "data/event.h"
+#include <rtc_base/thread.h>
 #include <android/log.h>
 
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, "RtcEngineHandlerJni", ##__VA_ARGS__)
@@ -12,10 +13,13 @@ namespace vic {
         const int boolLen = sizeof(bool);
 
         RtcEngineHandlerJni::RtcEngineHandlerJni(JNIEnv *env, jobject listener) {
+            jclass cls = env->GetObjectClass(listener);
+            jmethodID methodId = env->GetMethodID(cls, "onEvent", "(Ljava/lang/String;Ljava/lang/String;)V");
             //JavaVM是虚拟机在JNI中的表示，等下再其他线程回调java层需要用到
             env->GetJavaVM(&g_VM);
             // 生成一个全局引用保留下来，以便回调
             g_obj = env->NewGlobalRef(listener);
+            LOGI("----->Constructor Thread: %s", ::rtc::ThreadManager::Instance()->CurrentThread()->name().c_str());
         }
 
         void RtcEngineHandlerJni::onError(int err, const char *msg) {
@@ -55,6 +59,7 @@ namespace vic {
         }
 
         void RtcEngineHandlerJni::onEvent(const char *name, const char *info) {
+            LOGI("----->onEvent Thread: %s", ::rtc::ThreadManager::Instance()->CurrentThread()->name().c_str());
             LOGI("------>RtcEngineHandlerJni::onEvent: ");
             JNIEnv *env;
             //获取当前native线程是否有没有被附加到jvm环境中

@@ -12,7 +12,10 @@ JNIEXPORT jstring JNICALL Java_ren_vic_jnidemo_Testing_stringFromJNI(
 
 JNIEXPORT jint JNICALL Java_ren_vic_jnidemo_Testing_helloFromJNI(
         JNIEnv *env,
-        jobject /* this */) {
+        jobject thiz) {
+    jclass cls = env->GetObjectClass(thiz);
+    jmethodID methodId = env->GetMethodID(cls, "Test", "()V");
+    env->CallVoidMethod(thiz, methodId);
     auto hello = new Hello(1);
     hello->SayHello();
     return hello->Name();

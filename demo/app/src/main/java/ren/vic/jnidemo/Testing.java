@@ -1,5 +1,7 @@
 package ren.vic.jnidemo;
 
+import android.util.Log;
+
 public class Testing {
 
     /**
@@ -9,4 +11,8 @@ public class Testing {
     public native String stringFromJNI();
 
     public native int helloFromJNI();
+
+    protected void Test() {
+        Log.d("Testing", "Test: ");
+    }
 }
