@@ -15,7 +15,6 @@ public abstract class RtcEngine {
             ContextUtils.initialize(context);
             if (mInstance == null) {
                 mInstance = new RtcEngineImpl(context, appId, handler);
-            } else {
             }
             return mInstance;
         } else {
