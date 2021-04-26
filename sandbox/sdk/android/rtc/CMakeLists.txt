@@ -61,9 +61,6 @@ include_directories(
         ${LIBWEBRTC_INCLUDE_PATH}/third_party/abseil-cpp
         ../../../rtc/protoo_client/include
 )
-#link_directories(
-#        ../../../cmake-build-debug/lib
-#)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         ${SOURCE_DIR}
