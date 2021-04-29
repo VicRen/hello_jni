@@ -29,3 +29,12 @@ websocket/gradlew.bat
 websocket/gradle/wrapper/gradle-wrapper.jar
 websocket/gradle/wrapper/gradle-wrapper.properties
 websocket/app/src/main/cpp/example/cmake-build-debug/*
+hello_aar/lsrtc-debug/lsrtc-debug.aar
+hello_aar/lsrtc-debug/build/*
+hello_aar/app/build/*
+hello_aar/gradle/wrapper/gradle-wrapper.properties
+hello_aar/gradle/wrapper/gradle-wrapper.jar
+sandbox/rtc/libs/libwebrtc.a
+sandbox/rtc/libs/libwebrtc.jar
+sandbox/sdk/android/rtc/libs/arm64-v8a/libwebrtc.a
+sandbox/sdk/android/rtc/libs/libwebrtc.jar

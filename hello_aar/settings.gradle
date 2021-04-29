@@ -1,0 +1,3 @@
+include ':lsrtc-debug'
+include ':app'
+rootProject.name = "HelloAAR"

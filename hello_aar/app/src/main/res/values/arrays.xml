@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="video_dimension_array">
+        <item>1920X1080</item>
+        <item>1280X720</item>
+        <item>640X480</item>
+        <item>640X360</item>
+    </string-array>
+    <string-array name="video_dimension_value_array">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="frame_rate_array">
+<!--        <item>1</item>-->
+<!--        <item>7</item>-->
+<!--        <item>10</item>-->
+        <item>15</item>
+        <item>24</item>
+        <item>30</item>
+    </string-array>
+    <string-array name="frame_rate_value_array">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+<!--        <item>3</item>-->
+<!--        <item>4</item>-->
+<!--        <item>5</item>-->
+    </string-array>
+</resources>
